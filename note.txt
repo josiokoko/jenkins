@@ -1,0 +1,82 @@
+Task:
+	Junior DevOps supporting  team of developer
+	Deploy jenkins/build server for automated deployment
+		- Workload to be in a separate namespace
+		- Ensure jenkins instances have access to all the objects in the cluster
+
+Solutions:
+	(1) Ensure there is a k8s cluster up and running (assumption)
+	(2) Make sure you have a containerized application
+		
+		Assumption: jenkins/jenkins:lts
+
+	(3) Create neccessary manifest files
+			- namespace (done)
+			- deployment (done)
+			- Service (done)
+			- ServiceAccount (done)
+			- ClusterRole and ClusterRoleBinding (done)
+			- Volume (done)
+
+	(4) Make sure we have necessary plugins
+	
+
+RBAC => Role Based Access Control
+
+Authentication to k8s API Server:
+	regular users => developers, devops engineer via kubectl
+		- username/password
+		- client certificate
+
+	processes => Pods, Scheduler etc.
+		- ServiceAccount (object in k8s)
+
+
+(1) user or ServiceAccount
+		- Subject
+
+(2) workloads to access
+		- k8s objects
+
+(3) verbs
+		- list, create, delete
+	
+
+Role or ClusterRole
+	- define level of access
+	- objects that a a user or a ServiceAccount can access
+
+
+Rolebinding or ClusterRolebinding
+	- connect Subject and the Role or Rolebinding
+
+
+
+ConfigMap & Secret 
+========
+	postgres database:
+		- username (secret)
+		- password (secret)
+		- db_name (configmap)
+		- db_port (configmap)
+
+
+Secret
+ - opaque
+ - tls
+ - docker-registry
+
+
+Make sure your data value is base64 encoded
+
+	echo 'admin' | base64
+
+
+
+kubectl describe po <name>
+kubectl logs <pods>
+
+kubectl get events
+
+kubectl get nodes 
+kubectl describe node <node name>

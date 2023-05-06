@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  labels:
+    name: myapp
+spec:
+  containers:
+  - name: myapp
+    image: nginxs
+    # envFrom:
+    #   - secretRef:
+    #       name: mysecret
+    #   - configMapRef:
+    #       name: postgres-configmap
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80
+    volumeMounts:
+      - name: configmap-vol 
+        mountPath: /etc/config 
+  volumes:
+    - name: configmap-vol 
+      configMap:
+        name: postgres-configmap
